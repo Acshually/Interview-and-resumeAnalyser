@@ -43,7 +43,12 @@ async function registerUserController(req,res){
     },process.env.JWT_SECRET,{expiresIn:"1d"})
 
 
-    res.cookie("token", token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 24 * 60 * 60 * 1000
+    })
 
     res.status(201).json(
         {
@@ -94,7 +99,12 @@ async function loginUserController(req,res){
 
     },process.env.JWT_SECRET,{expiresIn:"1d"})
 
-    res.cookie("token",token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 24 * 60 * 60 * 1000
+    })
 
     res.status(200).json({
         message:"User logged in successfully",
@@ -123,7 +133,11 @@ async function logoutUserController(req,res){
             token: userLoggedIntoken
         })
 
-        return res.status(200).clearCookie("token").json({
+        return res.status(200).clearCookie("token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none"
+        }).json({
             message:"User logged out successfully"
         })
     }
