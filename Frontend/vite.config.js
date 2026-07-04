@@ -5,6 +5,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    allowedHosts: ['interview-and-resumeanalyser-1.onrender.com']
+    allowedHosts: true
   }
 })
